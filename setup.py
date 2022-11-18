@@ -1,4 +1,3 @@
-# from distutils.core import setup
 import py2exe
 
 print("Creating CLEAR executable")

@@ -1,11 +1,11 @@
 import os.path
+import traceback
 from os import path
-import time
+
+from clear import clear_symlinks
 from common import ROMS_FOLDER
 from common import get_drives
-from clear import clear_symlinks
 from common import print_cute_message
-import traceback
 
 
 def create_symlinks():

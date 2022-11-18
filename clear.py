@@ -1,11 +1,12 @@
-from common import print_cute_message
-from common import ROMS_FOLDER
-from common import BACKUP_SUFFIX
-from common import remove_suffix
-from os import path
 import os
-import time
 import traceback
+from os import path
+
+from common import BACKUP_SUFFIX
+from common import ROMS_FOLDER
+from common import print_cute_message
+from common import remove_suffix
+
 
 def clear_symlinks():
     print_cute_message("# [CLEAR] STARTING #")
