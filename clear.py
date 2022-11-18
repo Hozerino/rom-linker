@@ -13,7 +13,7 @@ def clear_symlinks():
     total = 0
     for console in os.listdir(internal_roms_path):
         if path.islink(internal_roms_path + console):
-            print(f"    DELETING_LINK [{internal_roms_path}{console}]")
+            print(f"    DELETING_LINK [{internal_roms_path}{console}] POINTS_TO [{os.readlink(internal_roms_path+console)}]")
             os.unlink(internal_roms_path + console)
             total += 1
 
@@ -33,4 +33,4 @@ if __name__ == '__main__':
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()
     finally:
-        time.sleep(10)
+        input("Press [ENTER] to continue...")

@@ -46,4 +46,4 @@ if __name__ == '__main__':
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()
     finally:
-        time.sleep(10)
+        input("Press [ENTER] to continue...")
