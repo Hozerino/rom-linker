@@ -7,7 +7,6 @@ import os
 import time
 import traceback
 
-
 def clear_symlinks():
     print_cute_message("# [CLEAR] STARTING #")
     internal_roms_path = f"./{ROMS_FOLDER}"

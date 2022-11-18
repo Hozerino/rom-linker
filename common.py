@@ -1,8 +1,6 @@
-
 import string
 from ctypes import windll
-import os
-from os import path
+
 
 ROMS_FOLDER = "roms/"
 BACKUP_SUFFIX = "_bkp"
