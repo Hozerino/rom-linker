@@ -14,16 +14,13 @@ def clear_symlinks():
     total = 0
     for console in os.listdir(internal_roms_path):
         if path.islink(internal_roms_path + console):
-            print(f"    Link found, deleting it [{internal_roms_path}{console}]")
+            print(f"    DELETING_LINK [{internal_roms_path}{console}]")
             os.unlink(internal_roms_path + console)
             total += 1
 
         if console.endswith(BACKUP_SUFFIX):
             original = remove_suffix(console, BACKUP_SUFFIX)
-            print(f"    Backup found, restoring it - [{internal_roms_path}{console}] -> [{internal_roms_path}{original}]")
-            if path.exists(internal_roms_path + original):
-                print(f"    Deleting OLD (link) [{internal_roms_path}{original}]")
-                os.remove(internal_roms_path + original)
+            print(f"    RESTORING_BACKUP [{internal_roms_path}{console}] -> [{internal_roms_path}{original}]")
             os.rename(internal_roms_path + console, internal_roms_path + original)
 
     final_message = f"# [CLEAR] FINISHED - [{str(total)}] SYMLINKS DELETED #"

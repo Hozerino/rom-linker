@@ -13,23 +13,25 @@ def create_symlinks():
 
     total = 0
     for drive in get_drives():
-        print(f"    Starting check on {drive}: drive")
+        print(f"    CHECK {drive}:")
         roms_path = f"{drive}:/{ROMS_FOLDER}"
         if path.exists(roms_path):
-            print(f"        Existing roms folder found [{roms_path}]")
+            print(f"        FOUND [{roms_path}]")
             for console in next(os.walk(roms_path))[1]:
                 internal_console_path = f"./{ROMS_FOLDER + console}"
                 external_console_path = roms_path + console
                 if path.exists(internal_console_path) and not path.islink(internal_console_path):
-                    print(f"        Internal console [{internal_console_path}] already exists, creating [{internal_console_path}_bkp]")
+                    print(f"        BACKUP [{internal_console_path}] -> [{internal_console_path}_bkp]")
                     os.rename(internal_console_path, internal_console_path + "_bkp")
                 elif path.islink(internal_console_path):
-                    print(f"        Skipping already created symlink at [{internal_console_path}] -> [{os.readlink(internal_console_path)}]")
+                    print(f"        SKIPPING_LINK [{internal_console_path}] POINTS_TO [{os.readlink(internal_console_path)}]")
                     continue
 
-                print(f"        Creating symlink [{external_console_path}] -> [{internal_console_path}]")
+                print(f"        CREATING_LINK [{external_console_path}] -> [{internal_console_path}]")
                 total += 1
                 os.symlink(external_console_path, internal_console_path)
+        else:
+            print(f"        SKIPPING {drive}:")
 
     final_message = f"# [CREATE] FINISHED - [{str(total)}] SYMLINKS CREATED #"
     print_cute_message(final_message)
