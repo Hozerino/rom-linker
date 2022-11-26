@@ -21,3 +21,13 @@ You'll put the scripts in `C:/RetroBat/script_here.py`, when you run it, it will
 - If there is a console, make a backup of `C:/RetroBat/n64` -> `C:/RetroBat/n64_bkp`
 - Create a symbolic link from `C:/RetroBat/n64` to `X:/roms/n64`
 So everytime RetroBat looks for roms inside `C:/RetroBat/N64` (which is a symbolic link), it will see the games from the `X:/roms/n64` drive.
+
+## Extra configuration:
+On version v2.0.0, a configuration.ini file was added, allowing some tweaks:
+- scan_disks - Allows you to force Rom-Linker to scan ONLY certain drives, by default it scans all drives;
+- ignore_disks - Skips certain drives, by default it ignores no disks besides the one of the next item;
+- ignore_local_disk - Like "ignore_disks", but skips only the drive in which the script is running, default is ON (skip local drive);
+- internal_roms_path - Relative path (looking from the script location) of the roms where the links will be created;
+- external_roms_path - Path of the roms folder (looking from the root of the external drive).
+
+Don't forget to read the comments inside configuration.ini before making any changes.
