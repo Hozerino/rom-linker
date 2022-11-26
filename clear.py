@@ -32,6 +32,5 @@ if __name__ == '__main__':
     except Exception as e:
         print()
         print(f"An error occurred: {str(e)}")
-        traceback.print_exc()
     finally:
         input("Press [ENTER] to continue...")

@@ -46,7 +46,6 @@ if __name__ == '__main__':
         print()
         create_symlinks(config)
     except Exception as e:
-        traceback.print_exc()
         print()
         print(f"An error occurred: {str(e)}")
     finally:

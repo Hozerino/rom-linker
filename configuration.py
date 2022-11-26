@@ -44,8 +44,8 @@ class Configuration(metaclass=Singleton):
                 ignore_disks.append(local_drive.strip(':'))
 
             # Strings
-            self.internal_roms_path = config_file['PATH']['internal_roms_path']
-            self.external_roms_path = config_file['PATH']['external_roms_path']
+            self.internal_roms_path = validate_path(config_file['PATH']['internal_roms_path'])
+            self.external_roms_path = validate_path(config_file['PATH']['external_roms_path'])
 
             if scan_disks:
                 self.final_scanned_disks = subtract(scan_disks, ignore_disks)
@@ -54,7 +54,6 @@ class Configuration(metaclass=Singleton):
         except Exception as e:
             print()
             print(f"An error occurred while loading configuration.ini, error: {str(e)}")
-            traceback.print_exc()
             input("Exiting... Press [ENTER] to continue...")
             return
 
@@ -69,4 +68,7 @@ class Configuration(metaclass=Singleton):
         print(f'\texternal_roms_path={self.external_roms_path}')
         print(f'\t(calculated) final_scanned_disks={self.final_scanned_disks}')
 
-
+def validate_path(path):
+    if not path.endswith('/'):
+        raise ValueError(f"Invalid path in configuration file \"{path}\". Path strings must end with /")
+    return path
