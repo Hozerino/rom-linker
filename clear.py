@@ -27,8 +27,9 @@ def clear_symlinks(config: Configuration):
 
 
 if __name__ == '__main__':
+    config = Configuration()
     try:
-        clear_symlinks()
+        clear_symlinks(config)
     except Exception as e:
         print()
         print(f"An error occurred: {str(e)}")

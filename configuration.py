@@ -55,7 +55,7 @@ class Configuration(metaclass=Singleton):
             print()
             print(f"An error occurred while loading configuration.ini, error: {str(e)}")
             input("Exiting... Press [ENTER] to continue...")
-            return
+            quit()
 
         if scan_disks:
             print(f'\tscan_disks={scan_disks}')
