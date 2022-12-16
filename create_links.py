@@ -19,6 +19,9 @@ def create_symlinks(config: Configuration):
         if path.exists(roms_path):
             print(f"\t\tFOUND [{roms_path}]")
             for console in next(os.walk(roms_path))[1]:
+                if console in config.ignore_consoles:
+                    print(f"\t\tIGNORING [{console}] as configured")
+                    continue
                 internal_console_path = f"{config.internal_roms_path + console}"
                 external_console_path = roms_path + console
                 if path.exists(internal_console_path) and not path.islink(internal_console_path):
