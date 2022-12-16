@@ -8,6 +8,31 @@ from clear import clear_symlinks
 from common import print_cute_message
 from common import BACKUP_SUFFIX
 
+rom_path_mode = "FOLDER_PATH"
+rom_file_mode = "ROMS_FILE"
+
+def walklevel(some_dir, level=1):
+    some_dir = some_dir.rstrip(os.path.sep)
+    assert os.path.isdir(some_dir)
+    num_sep = some_dir.count(os.path.sep)
+    for root, dirs, files in os.walk(some_dir):
+        yield root, dirs, files
+        num_sep_this = root.count(os.path.sep)
+        if num_sep + level <= num_sep_this:
+            del dirs[:]
+
+
+def find_rom_folder(mode, drive, config: Configuration):
+    if mode == rom_path_mode:
+        roms_path = f"{drive}:{config.external_roms_path}"
+        if path.exists(roms_path):
+            return rom_path_mode
+    elif mode == rom_file_mode:
+        for file in walklevel(drive, config.scan_depth):
+            if file.name == "ROMS_PATH":
+                print(f"\t\tFOUND ROMS_PATH FILE [{file}]")
+
+
 
 def create_symlinks(config: Configuration):
     print_cute_message("# [CREATE] STARTING #")

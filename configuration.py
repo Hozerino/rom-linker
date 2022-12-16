@@ -46,6 +46,8 @@ class Configuration(metaclass=Singleton):
             # Strings
             self.internal_roms_path = validate_path(config_file['PATH']['internal_roms_path'])
             self.external_roms_path = validate_path(config_file['PATH']['external_roms_path'])
+            self.scan_mode = validate_path(config_file['SCAN']['scan_mode'])
+            self.scan_depth = validate_path(config_file['SCAN']['roms_file_scan_depth'])
 
             if scan_disks:
                 self.final_scanned_disks = subtract(scan_disks, ignore_disks)
