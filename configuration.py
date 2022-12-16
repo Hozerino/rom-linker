@@ -66,6 +66,7 @@ class Configuration(metaclass=Singleton):
         print(f'\tignore_local_disk={ignore_local_disk}')
         print(f'\tinternal_roms_path={self.internal_roms_path}')
         print(f'\texternal_roms_path={self.external_roms_path}')
+        print(f'\tignore_consoles={self.ignore_consoles}')
         print(f'\t(calculated) final_scanned_disks={self.final_scanned_disks}')
 
 def validate_path(path):

@@ -27,6 +27,7 @@ On version v2.0.0, a configuration.ini file was added, allowing some tweaks:
 - scan_disks - Allows you to force Rom-Linker to scan ONLY certain drives, by default it scans all drives;
 - ignore_disks - Skips certain drives, by default it ignores no disks besides the one of the next item;
 - ignore_local_disk - Like "ignore_disks", but skips only the drive in which the script is running, default is ON (skip local drive);
+- ignore_consoles - Skips certain console folders, by default it skips no console and reads all of them
 - internal_roms_path - Relative path (looking from the script location) of the roms where the links will be created;
 - external_roms_path - Path of the roms folder (looking from the root of the external drive).
 
