@@ -36,6 +36,8 @@ class Configuration(metaclass=Singleton):
             scan_disks = json.loads(config_file['SCAN']['scan_disks'])
             ignore_disks = json.loads(config_file['IGNORE']['ignore_disks'])
             self.ignore_consoles = json.loads(config_file['IGNORE']['ignore_consoles'])
+            self.auto_close = json.loads(config_file['OPTIONS']['auto_close'])
+            self.auto_close_time = json.loads(config_file['OPTIONS']['auto_close_seconds'])
 
             # Booleans
             ignore_local_disk = config_file['IGNORE']['ignore_local_disk'] == 1

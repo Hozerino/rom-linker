@@ -1,5 +1,4 @@
 import os.path
-import traceback
 from os import path
 
 from configuration import Configuration
@@ -8,6 +7,8 @@ from clear import clear_symlinks
 from common import print_cute_message
 from common import BACKUP_SUFFIX
 
+import sys
+import time
 
 def create_symlinks(config: Configuration):
     print_cute_message("# [CREATE] STARTING #")
@@ -52,4 +53,13 @@ if __name__ == '__main__':
         print()
         print(f"An error occurred: {str(e)}")
     finally:
-        input("Press [ENTER] to continue...")
+        if config.auto_close == 1:
+            for remaining in range(config.auto_close_time, 0, -1):
+                sys.stdout.write("\r")
+                sys.stdout.write(f"Exiting in {remaining} seconds.")
+                sys.stdout.flush()
+                time.sleep(1)
+        else:
+            input("Press [ENTER] to continue...")
+        exit(0)
+
