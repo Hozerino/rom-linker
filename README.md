@@ -18,9 +18,9 @@ Also, the folder that already existed inside `C:RetroBat/roms` will be renamed t
 Say your RetroBat is in `C:/RetroBat`, so your roms folder is `C:/RetroBat/roms`.
 You'll put the scripts in `C:/RetroBat/script_here.py`, when you run it, it will look for EVERY drive letter, trying to find the `X:/roms` folder, if it does find it, the script will do as follows:
 - Check every console folder inside `X:/roms`, let's say it finds a `X:/roms/n64`
-- If there is a console, make a backup of `C:/RetroBat/n64` -> `C:/RetroBat/n64_bkp`
-- Create a symbolic link from `C:/RetroBat/n64` to `X:/roms/n64`
-So everytime RetroBat looks for roms inside `C:/RetroBat/N64` (which is a symbolic link), it will see the games from the `X:/roms/n64` drive.
+- If there is a console, make a backup of `C:/RetroBat/roms/n64` -> `C:/RetroBat/roms/n64_bkp`
+- Create a symbolic link from `C:/RetroBat/roms/n64` to `X:/roms/n64`
+So everytime RetroBat looks for roms inside `C:/RetroBat/n64` (which is a symbolic link), it will see the games from the `X:/roms/n64` drive.
 
 ## Extra configuration:
 On version v2.0.0, a configuration.ini file was added, allowing some tweaks:
