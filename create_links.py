@@ -14,6 +14,9 @@ def create_symlinks(config: Configuration):
     print_cute_message("# [CREATE] STARTING #")
 
     total = 0
+    if config.dry_run:
+        print("\tDRY_RUN is enabled. No links, backups, or files will be changed.")
+
     for drive in config.final_scanned_disks:
         print(f"\tCHECK {drive}:")
         roms_path = f"{drive}:{config.external_roms_path}"
@@ -27,19 +30,22 @@ def create_symlinks(config: Configuration):
                 external_console_path = roms_path + console
                 if path.exists(internal_console_path) and not path.islink(internal_console_path):
                     print(f"\t\tBACKUP [{internal_console_path}] -> [{internal_console_path + BACKUP_SUFFIX}]")
-                    os.rename(internal_console_path, internal_console_path + BACKUP_SUFFIX)
+                    if not config.dry_run:
+                        os.rename(internal_console_path, internal_console_path + BACKUP_SUFFIX)
                 elif path.islink(internal_console_path):
                     print(
                         f"\t\tSKIPPING_LINK [{internal_console_path}] POINTS_TO [{os.readlink(internal_console_path)}]")
                     continue
-
-                print(f"\t\tCREATING_LINK [{external_console_path}] -> [{internal_console_path}]")
+                action = "WOULD_CREATE_LINK" if config.dry_run else "CREATING_LINK"
+                print(f"\t\t{action} [{external_console_path}] -> [{internal_console_path}]")
                 total += 1
-                os.symlink(external_console_path, internal_console_path)
+                if not config.dry_run:
+                    os.symlink(external_console_path, internal_console_path)
         else:
             print(f"\t\tSKIPPING {drive}:")
 
-    final_message = f"# [CREATE] FINISHED - [{str(total)}] SYMLINKS CREATED #"
+    action = "WOULD BE CREATED" if config.dry_run else "CREATED"
+    final_message = f"# [CREATE] FINISHED - [{str(total)}] SYMLINKS {action} #"
     print_cute_message(final_message)
 
 
