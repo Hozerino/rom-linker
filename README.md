@@ -30,7 +30,10 @@ On version v2.0.0, a configuration.ini file was added, allowing some tweaks:
 - ignore_consoles - Skips certain console folders, by default it skips no console and reads all of them;
 - internal_roms_path - Relative path (looking from the script location) of the roms where the links will be created;
 - external_roms_path - Path of the roms folder (looking from the root of the external drive);
+- dry_run - Shows which links/backups/restores would happen without changing files;
 - auto_close - Defines whether the program will close after executing;
 - auto_close_seconds - How many seconds to wait before closing (only works if auto_close is 1).
+
+You can also run `configuration_editor.py` to edit `configuration.ini` using a small graphical window.
 
 Don't forget to read the comments inside configuration.ini before making any changes.

@@ -15,15 +15,18 @@ def clear_symlinks(config: Configuration):
     for console in os.listdir(config.internal_roms_path):
         if path.islink(config.internal_roms_path + console):
             print(f"\tDELETING_LINK [{config.internal_roms_path}{console}] POINTS_TO [{os.readlink(config.internal_roms_path+console)}]")
-            os.unlink(config.internal_roms_path + console)
+            if not config.dry_run:
+                os.unlink(config.internal_roms_path + console)
             total += 1
 
         if console.endswith(BACKUP_SUFFIX):
             original = remove_suffix(console, BACKUP_SUFFIX)
             print(f"\tRESTORING_BACKUP [{config.internal_roms_path + console}] -> [{config.internal_roms_path + original}]")
-            os.rename(config.internal_roms_path + console, config.internal_roms_path + original)
+            if not config.dry_run:
+                os.rename(config.internal_roms_path + console, config.internal_roms_path + original)
 
-    final_message = f"# [CLEAR] FINISHED - [{str(total)}] SYMLINKS DELETED #"
+    action = "WOULD DELETE" if config.dry_run else "DELETED"
+    final_message = f"# [CLEAR] FINISHED - [{str(total)}] SYMLINKS {action} #"
     print_cute_message(final_message)
 
 

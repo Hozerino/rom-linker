@@ -1,0 +1,2 @@
+py2exe>=0.14.0.0
+pyinstaller>=6.20.0

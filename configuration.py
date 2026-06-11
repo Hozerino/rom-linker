@@ -36,11 +36,12 @@ class Configuration(metaclass=Singleton):
             scan_disks = json.loads(config_file['SCAN']['scan_disks'])
             ignore_disks = json.loads(config_file['IGNORE']['ignore_disks'])
             self.ignore_consoles = json.loads(config_file['IGNORE']['ignore_consoles'])
-            self.auto_close = json.loads(config_file['OPTIONS']['auto_close'])
-            self.auto_close_time = json.loads(config_file['OPTIONS']['auto_close_seconds'])
+            self.auto_close = read_bool(config_file, 'OPTIONS', 'auto_close')
+            self.auto_close_time = config_file.getint('OPTIONS', 'auto_close_seconds')
+            self.dry_run = read_bool(config_file, 'OPTIONS', 'dry_run', fallback=False)
 
             # Booleans
-            ignore_local_disk = config_file['IGNORE']['ignore_local_disk'] == 1
+            ignore_local_disk = read_bool(config_file, 'IGNORE', 'ignore_local_disk')
             if ignore_local_disk:
                 local_drive = pathlib.Path.home().drive
                 ignore_disks.append(local_drive.strip(':'))
@@ -69,9 +70,17 @@ class Configuration(metaclass=Singleton):
         print(f'\tinternal_roms_path={self.internal_roms_path}')
         print(f'\texternal_roms_path={self.external_roms_path}')
         print(f'\tignore_consoles={self.ignore_consoles}')
+        print(f'\tdry_run={self.dry_run}')
         print(f'\t(calculated) final_scanned_disks={self.final_scanned_disks}')
 
 def validate_path(path):
     if not path.endswith('/'):
         raise ValueError(f"Invalid path in configuration file \"{path}\". Path strings must end with /")
     return path
+
+def read_bool(config_file, section, option, fallback=None):
+    if fallback is not None and not config_file.has_option(section, option):
+        return fallback
+
+    raw_value = config_file.get(section, option).strip().lower()
+    return raw_value in ['1', 'true', 'yes', 'on']
